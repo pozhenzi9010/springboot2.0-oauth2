@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 
+//https://blog.csdn.net/dandandeshangni/article/details/80145378
+
+
 /**
  * Created on 2018/4/28.
  *
@@ -38,21 +41,21 @@ public class SpringBoot2Oauth2Application {
 
     @GetMapping("/userJwt")
     public Object getCurrentUserJwt(Authentication authentication, HttpServletRequest request) throws UnsupportedEncodingException {
-        log.info("【SecurityOauth2Application】 getCurrentUserJwt authentication={}", JsonUtil.toJson(authentication));
+        //log.info("【SecurityOauth2Application】 getCurrentUserJwt authentication={}", JsonUtil.toJson(authentication));
 
         String header = request.getHeader("Authorization");
         String token = StringUtils.substringAfter(header, "bearer ");
 
         Claims claims = Jwts.parser().setSigningKey(oAuth2Properties.getJwtSigningKey().getBytes("UTF-8")).parseClaimsJws(token).getBody();
         String blog = (String) claims.get("blog");
-        log.info("【SecurityOauth2Application】 getCurrentUser1 blog={}", blog);
+        //log.info("【SecurityOauth2Application】 getCurrentUser1 blog={}", blog);
 
         return authentication;
     }
 
     @GetMapping("/userRedis")
     public Object getCurrentUserRedis(Authentication authentication) {
-        log.info("【SecurityOauth2Application】 getCurrentUserRedis authentication={}", JsonUtil.toJson(authentication));
+        //log.info("【SecurityOauth2Application】 getCurrentUserRedis authentication={}", JsonUtil.toJson(authentication));
 
 
         return authentication;
